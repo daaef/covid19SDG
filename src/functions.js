@@ -6,13 +6,13 @@ export function infectionsRequested(currentlyInfected, period, type) {
   let infectionsRequestedTime;
   switch (type) {
     case 'weeks':
-      infectionsRequestedTime = currentlyInfected * (2 ** Math.round((period * 7) / 3));
+      infectionsRequestedTime = currentlyInfected * Math.round(2 ** ((period * 7) / 3));
       break;
     case 'months':
       infectionsRequestedTime = currentlyInfected * (2 ** (period * 10));
       break;
     default:
-      infectionsRequestedTime = currentlyInfected * (2 ** Math.round(period / 3));
+      infectionsRequestedTime = currentlyInfected * Math.round(2 ** (period / 3));
   }
   return infectionsRequestedTime;
 }
