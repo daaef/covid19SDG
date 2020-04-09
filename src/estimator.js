@@ -28,15 +28,15 @@ function dollarsInFlightCost(
   let dollarsInFlight;
   switch (type) {
     case 'weeks':
-      dollarsInFlight = Math.floor((infectionsByRequestedTime * avgDailyIncomePopulation)
+      dollarsInFlight = Math.ceil((infectionsByRequestedTime * avgDailyIncomePopulation)
         * avgDailyIncomeInUSD * (period * 7));
       break;
     case 'months':
-      dollarsInFlight = Math.floor((infectionsByRequestedTime * avgDailyIncomePopulation)
+      dollarsInFlight = Math.ceil((infectionsByRequestedTime * avgDailyIncomePopulation)
         * avgDailyIncomeInUSD * (period * 30));
       break;
     default:
-      dollarsInFlight = Math.floor((infectionsByRequestedTime * avgDailyIncomePopulation)
+      dollarsInFlight = Math.ceil((infectionsByRequestedTime * avgDailyIncomePopulation)
         * avgDailyIncomeInUSD * period);
   }
 
@@ -57,13 +57,13 @@ const covid19ImpactEstimator = (data) => {
     - impactSevereCasesByRequestedTime);
   const severeHospitalBedsByRequestedTime = Math.ceil((data.totalHospitalBeds * 0.35)
     - severeSevereCasesByRequestedTime);
-  const impactCasesForICUByRequestedTime = Math.ceil((impactInfectionsByRequestedTime * 0.05));
-  const severeCasesForICUByRequestedTime = Math.ceil((severeInfectionsByRequestedTime * 0.05));
-  const impactCasesForVentilatorsByRequestedTime = Math.ceil(
-    (impactInfectionsByRequestedTime * 0.02)
+  const impactCasesForICUByRequestedTime = Math.ceil(impactInfectionsByRequestedTime * 0.05);
+  const severeCasesForICUByRequestedTime = Math.ceil(severeInfectionsByRequestedTime * 0.05);
+  const impactCasesForVentilatorsByRequestedTime = Math.floor(
+    impactInfectionsByRequestedTime * 0.02
   );
-  const severeCasesForVentilatorsByRequestedTime = Math.ceil(
-    (severeInfectionsByRequestedTime * 0.02)
+  const severeCasesForVentilatorsByRequestedTime = Math.floor(
+    severeInfectionsByRequestedTime * 0.02
   );
   const impactDollarsInFlight = dollarsInFlightCost(impactInfectionsByRequestedTime,
     data.avgDailyIncomePopulation,
