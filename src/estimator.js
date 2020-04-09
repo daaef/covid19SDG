@@ -6,13 +6,13 @@ function infectionsRequested(currentlyInfected, period, type) {
   let infectionsRequestedTime;
   switch (type) {
     case 'weeks':
-      infectionsRequestedTime = currentlyInfected * (2 ** Math.floor((period * 7) / 3));
+      infectionsRequestedTime = currentlyInfected * (2 ** Math.round((period * 7) / 3));
       break;
     case 'months':
       infectionsRequestedTime = currentlyInfected * (2 ** (period * 10));
       break;
     default:
-      infectionsRequestedTime = currentlyInfected * (2 ** Math.floor(period / 3));
+      infectionsRequestedTime = currentlyInfected * (2 ** Math.round(period / 3));
   }
   return infectionsRequestedTime;
 }
@@ -28,15 +28,15 @@ function dollarsInFlightCost(
   let dollarsInFlight;
   switch (type) {
     case 'weeks':
-      dollarsInFlight = Math.ceil((infectionsByRequestedTime * avgDailyIncomePopulation)
+      dollarsInFlight = Math.round((infectionsByRequestedTime * avgDailyIncomePopulation)
         * avgDailyIncomeInUSD * (period * 7));
       break;
     case 'months':
-      dollarsInFlight = Math.ceil((infectionsByRequestedTime * avgDailyIncomePopulation)
+      dollarsInFlight = Math.round((infectionsByRequestedTime * avgDailyIncomePopulation)
         * avgDailyIncomeInUSD * (period * 30));
       break;
     default:
-      dollarsInFlight = Math.ceil((infectionsByRequestedTime * avgDailyIncomePopulation)
+      dollarsInFlight = Math.round((infectionsByRequestedTime * avgDailyIncomePopulation)
         * avgDailyIncomeInUSD * period);
   }
 
@@ -53,16 +53,16 @@ const covid19ImpactEstimator = (data) => {
     data.timeToElapse, data.periodType);
   const impactSevereCasesByRequestedTime = impactInfectionsByRequestedTime * 0.15;
   const severeSevereCasesByRequestedTime = severeInfectionsByRequestedTime * 0.15;
-  const impactHospitalBedsByRequestedTime = (Math.floor(data.totalHospitalBeds * 0.35)
+  const impactHospitalBedsByRequestedTime = (Math.round(data.totalHospitalBeds * 0.35)
     - impactSevereCasesByRequestedTime);
-  const severeHospitalBedsByRequestedTime = (Math.floor(data.totalHospitalBeds * 0.35)
+  const severeHospitalBedsByRequestedTime = (Math.round(data.totalHospitalBeds * 0.35)
     - severeSevereCasesByRequestedTime);
-  const impactCasesForICUByRequestedTime = Math.floor(impactInfectionsByRequestedTime * 0.05);
-  const severeCasesForICUByRequestedTime = Math.floor(severeInfectionsByRequestedTime * 0.05);
-  const impactCasesForVentilatorsByRequestedTime = Math.floor(
+  const impactCasesForICUByRequestedTime = Math.round(impactInfectionsByRequestedTime * 0.05);
+  const severeCasesForICUByRequestedTime = Math.round(severeInfectionsByRequestedTime * 0.05);
+  const impactCasesForVentilatorsByRequestedTime = Math.round(
     impactInfectionsByRequestedTime * 0.02
   );
-  const severeCasesForVentilatorsByRequestedTime = Math.floor(
+  const severeCasesForVentilatorsByRequestedTime = Math.round(
     severeInfectionsByRequestedTime * 0.02
   );
   const impactDollarsInFlight = dollarsInFlightCost(impactInfectionsByRequestedTime,
