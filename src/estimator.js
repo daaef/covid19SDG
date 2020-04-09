@@ -17,6 +17,32 @@ function infectionsRequested(currentlyInfected, period, type) {
   return infectionsRequestedTime;
 }
 
+
+function dollarsInFlightCost(
+  infectionsByRequestedTime,
+  avgDailyIncomePopulation,
+  avgDailyIncomeInUSD,
+  period,
+  type
+) {
+  let dollarsInFlight;
+  switch (type) {
+    case 'weeks':
+      dollarsInFlight = Math.ceil((infectionsByRequestedTime * avgDailyIncomePopulation)
+        * avgDailyIncomeInUSD * (period * 7));
+      break;
+    case 'months':
+      dollarsInFlight = Math.ceil((infectionsByRequestedTime * avgDailyIncomePopulation)
+        * avgDailyIncomeInUSD * (period * 30));
+      break;
+    default:
+      dollarsInFlight = Math.ceil((infectionsByRequestedTime * avgDailyIncomePopulation)
+        * avgDailyIncomeInUSD * period);
+  }
+
+  return dollarsInFlight;
+}
+
 const covid19ImpactEstimator = (data) => {
   const input = data;
   const currentlyInfectedImpact = currentlyInfectedPeople(data.reportedCases, 10);
@@ -31,6 +57,19 @@ const covid19ImpactEstimator = (data) => {
     - impactSevereCasesByRequestedTime);
   const severeHospitalBedsByRequestedTime = Math.ceil((data.totalHospitalBeds * 0.35)
     - severeSevereCasesByRequestedTime);
+  const impactCasesForICUByRequestedTime = Math.ceil((impactInfectionsByRequestedTime * 0.05));
+  const severeCasesForICUByRequestedTime = Math.ceil((severeInfectionsByRequestedTime * 0.05));
+  const impactCasesForVentilatorsByRequestedTime =
+    Math.ceil((impactInfectionsByRequestedTime * 0.02));
+  const severeCasesForVentilatorsByRequestedTime =
+    Math.ceil((severeInfectionsByRequestedTime * 0.02));
+  const impactDollarsInFlight = dollarsInFlightCost(impactInfectionsByRequestedTime,
+    data.avgDailyIncomePopulation,
+    data.avgDailyIncomeInUSD, data.timeToElapse, data.periodType);
+  const severeDollarsInFlight = dollarsInFlightCost(severeInfectionsByRequestedTime,
+    data.avgDailyIncomePopulation,
+    data.avgDailyIncomeInUSD, data.timeToElapse, data.periodType);
+
 
   return {
     data: input,
@@ -38,13 +77,19 @@ const covid19ImpactEstimator = (data) => {
       currentlyInfected: currentlyInfectedImpact,
       infectionsByRequestedTime: impactInfectionsByRequestedTime,
       severeCasesByRequestedTime: impactSevereCasesByRequestedTime,
-      hospitalBedsByRequestedTime: impactHospitalBedsByRequestedTime
+      hospitalBedsByRequestedTime: impactHospitalBedsByRequestedTime,
+      casesForICUByRequestedTime: impactCasesForICUByRequestedTime,
+      casesForVentilatorsByRequestedTime: impactCasesForVentilatorsByRequestedTime,
+      dollarsInFlight: impactDollarsInFlight
     },
     severeImpact: {
       currentlyInfected: currentlyInfectedSevere,
       infectionsByRequestedTime: severeInfectionsByRequestedTime,
       severeCasesByRequestedTime: severeSevereCasesByRequestedTime,
-      hospitalBedsByRequestedTime: severeHospitalBedsByRequestedTime
+      hospitalBedsByRequestedTime: severeHospitalBedsByRequestedTime,
+      casesForICUByRequestedTime: severeCasesForICUByRequestedTime,
+      casesForVentilatorsByRequestedTime: severeCasesForVentilatorsByRequestedTime,
+      dollarsInFlight: severeDollarsInFlight
     }
   };
 };
