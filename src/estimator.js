@@ -8,15 +8,17 @@ function infectionsRequested(currentlyInfected, period) {
 
 const covid19ImpactEstimator = (data) => {
   const input = data;
+  const currentlyInfectedImpact = currentlyInfectedPeople(data.reportedCases, 10);
+  const currentlyInfectedSevere = currentlyInfectedPeople(data.reportedCases, 50);
   return {
     data: input,
     impact: {
-      currentlyInfected: currentlyInfectedPeople(data.reportedCases, 10),
-      infectionsByRequestedTime: infectionsRequested(this.currentlyInfected, data.timeToElapse)
+      currentlyInfected: currentlyInfectedImpact,
+      infectionsByRequestedTime: infectionsRequested(currentlyInfectedImpact, data.timeToElapse)
     },
     severeImpact: {
-      currentlyInfected: currentlyInfectedPeople(data.reportedCases, 50),
-      infectionsByRequestedTime: infectionsRequested(this.currentlyInfected, data.timeToElapse)
+      currentlyInfected: currentlyInfectedSevere,
+      infectionsByRequestedTime: infectionsRequested(currentlyInfectedSevere, data.timeToElapse)
     }
   };
 };
