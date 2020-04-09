@@ -28,15 +28,15 @@ function dollarsInFlightCost(
   let dollarsInFlight;
   switch (type) {
     case 'weeks':
-      dollarsInFlight = Math.ceil((infectionsByRequestedTime * avgDailyIncomePopulation)
+      dollarsInFlight = Math.floor((infectionsByRequestedTime * avgDailyIncomePopulation)
         * avgDailyIncomeInUSD * (period * 7));
       break;
     case 'months':
-      dollarsInFlight = Math.ceil((infectionsByRequestedTime * avgDailyIncomePopulation)
+      dollarsInFlight = Math.floor((infectionsByRequestedTime * avgDailyIncomePopulation)
         * avgDailyIncomeInUSD * (period * 30));
       break;
     default:
-      dollarsInFlight = Math.ceil((infectionsByRequestedTime * avgDailyIncomePopulation)
+      dollarsInFlight = Math.floor((infectionsByRequestedTime * avgDailyIncomePopulation)
         * avgDailyIncomeInUSD * period);
   }
 
