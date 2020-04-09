@@ -6,13 +6,13 @@ function infectionsRequested(currentlyInfected, period, type) {
   let infectionsRequestedTime;
   switch (type) {
     case 'weeks':
-      infectionsRequestedTime = currentlyInfected * (2 ** Math.ceil((period * 7) / 3));
+      infectionsRequestedTime = currentlyInfected * (2 ** Math.floor((period * 7) / 3));
       break;
     case 'months':
       infectionsRequestedTime = currentlyInfected * (2 ** (period * 10));
       break;
     default:
-      infectionsRequestedTime = currentlyInfected * (2 ** Math.ceil(period / 3));
+      infectionsRequestedTime = currentlyInfected * (2 ** Math.floor(period / 3));
   }
   return infectionsRequestedTime;
 }
@@ -27,9 +27,9 @@ const covid19ImpactEstimator = (data) => {
     data.timeToElapse, data.periodType);
   const impactSevereCasesByRequestedTime = impactInfectionsByRequestedTime * 0.15;
   const severeSevereCasesByRequestedTime = severeInfectionsByRequestedTime * 0.15;
-  const impactHospitalBedsByRequestedTime = (Math.ceil(data.totalHospitalBeds * 0.35)
+  const impactHospitalBedsByRequestedTime = (Math.floor(data.totalHospitalBeds * 0.35)
     - impactSevereCasesByRequestedTime);
-  const severeHospitalBedsByRequestedTime = (Math.ceil(data.totalHospitalBeds * 0.35)
+  const severeHospitalBedsByRequestedTime = (Math.floor(data.totalHospitalBeds * 0.35)
     - severeSevereCasesByRequestedTime);
 
   return {
