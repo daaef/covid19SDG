@@ -1,44 +1,66 @@
 export function currentlyInfectedPeople(reportedCases, times) {
-  return reportedCases * times;
+  return reportedCases * 10 * times;
 }
 
-export function infectionsRequested(currentlyInfected, period, type) {
-  let infectionsRequestedTime;
-  switch (type) {
+export function getNumOfDays({ timeToElapse, periodType = 'days' }) {
+  let numOfDays;
+  switch (periodType) {
     case 'weeks':
-      infectionsRequestedTime = currentlyInfected * (2 ** Math.floor((period * 7) / 3));
+      numOfDays = timeToElapse * 7;
       break;
     case 'months':
-      infectionsRequestedTime = currentlyInfected * (2 ** (period * 10));
+      numOfDays = timeToElapse * 30;
       break;
     default:
-      infectionsRequestedTime = currentlyInfected * (2 ** Math.floor(period / 3));
+      numOfDays = timeToElapse;
+      break;
   }
-  return infectionsRequestedTime;
+  return numOfDays;
 }
 
 
 export function dollarsInFlightCost(
   infectionsByRequestedTime,
-  avgDailyIncomePopulation,
-  avgDailyIncomeInUSD,
-  period,
-  type
-) {
-  let dollarsInFlight;
-  switch (type) {
-    case 'weeks':
-      dollarsInFlight = Math.round((infectionsByRequestedTime * avgDailyIncomePopulation)
-        * avgDailyIncomeInUSD * (period * 7));
-      break;
-    case 'months':
-      dollarsInFlight = Math.round((infectionsByRequestedTime * avgDailyIncomePopulation)
-        * avgDailyIncomeInUSD * (period * 30));
-      break;
-    default:
-      dollarsInFlight = Math.round((infectionsByRequestedTime * avgDailyIncomePopulation)
-        * avgDailyIncomeInUSD * period);
+  days, {
+    avgDailyIncomePopulation,
+    avgDailyIncomeInUSD
   }
+) {
+  Math.floor(
+    (infectionsByRequestedTime * avgDailyIncomeInUSD * avgDailyIncomePopulation)
+    / days
+  );
+}
 
-  return dollarsInFlight;
+export function deriveImpact({ region, ...content }, multiplier = 1) {
+  const days = getNumOfDays(content);
+  const infectionFactor = Math.floor(days / 3);
+
+  const currentlyInfected = currentlyInfectedPeople(content.reportedCases, multiplier);
+
+  const infectionsByRequestedTime = currentlyInfected * (2 ** infectionFactor);
+
+  const severeCasesByRequestedTime = Math.floor(infectionsByRequestedTime * 0.15);
+
+  const hospitalBedsByRequestedTime = Math.ceil(content.totalHospitalBeds * 0.35)
+    - severeCasesByRequestedTime;
+
+  const casesForICUByRequestedTime = Math.floor(infectionsByRequestedTime * 0.05);
+
+  const casesForVentilatorsByRequestedTime = Math.floor(infectionsByRequestedTime * 0.02);
+
+  const dollarsInFlight = dollarsInFlightCost(
+    infectionsByRequestedTime, days,
+    region
+  );
+
+  return {
+    currentlyInfected,
+    infectionsByRequestedTime,
+    severeCasesByRequestedTime,
+    hospitalBedsByRequestedTime,
+    casesForICUByRequestedTime,
+    casesForVentilatorsByRequestedTime,
+    dollarsInFlight
+  };
 }
