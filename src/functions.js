@@ -43,7 +43,7 @@ export function deriveImpact({ region, ...content }, multiplier = 1) {
 
   const severeCasesByRequestedTime = Math.floor(infectionsByRequestedTime * 0.15);
 
-  const hospitalBedsByRequestedTime = Math.round((content.totalHospitalBeds * 0.35)
+  const hospitalBedsByRequestedTime = Math.trunc((content.totalHospitalBeds * 0.35)
     - severeCasesByRequestedTime);
 
   const casesForICUByRequestedTime = Math.floor(infectionsByRequestedTime * 0.05);
