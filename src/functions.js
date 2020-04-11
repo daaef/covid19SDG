@@ -18,20 +18,6 @@ export function getNumOfDays({ timeToElapse, periodType = 'days' }) {
   return numOfDays;
 }
 
-
-export function dollarsInFlightCost(
-  infectionsByRequestedTime,
-  days, {
-    avgDailyIncomePopulation,
-    avgDailyIncomeInUSD
-  }
-) {
-  Math.trunc(
-    (infectionsByRequestedTime * avgDailyIncomeInUSD * avgDailyIncomePopulation)
-    / days
-  );
-}
-
 export function deriveImpact({ region, ...content }, multiplier = 1) {
   const days = getNumOfDays(content);
 
@@ -50,10 +36,8 @@ export function deriveImpact({ region, ...content }, multiplier = 1) {
 
   const casesForVentilatorsByRequestedTime = Math.round(infectionsByRequestedTime * 0.02);
 
-  /* const dollarsInFlight = dollarsInFlightCost(
-    infectionsByRequestedTime, days,
-    region
-  ); */
+  const dollarsInFlight = Math.trunc((infectionsByRequestedTime * region.avgDailyIncomeInUSD
+    * region.avgDailyIncomePopulation) / days);
 
   return {
     currentlyInfected,
@@ -61,6 +45,7 @@ export function deriveImpact({ region, ...content }, multiplier = 1) {
     severeCasesByRequestedTime,
     hospitalBedsByRequestedTime,
     casesForICUByRequestedTime,
-    casesForVentilatorsByRequestedTime
+    casesForVentilatorsByRequestedTime,
+    dollarsInFlight
   };
 }
