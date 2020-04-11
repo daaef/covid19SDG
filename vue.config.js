@@ -10,9 +10,7 @@ module.exports = {
         routes: ['/', '/about']
       })
     ]
-  }
-};
-
-module.exports = {
-  assetsDir: 'assets'
+  },
+  assetsDir: 'assets',
+  publicPath: '/covid19SDG'
 };
