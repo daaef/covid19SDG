@@ -35,7 +35,7 @@ export function dollarsInFlightCost(
 export function deriveImpact({ region, ...content }, multiplier = 1) {
   const days = getNumOfDays(content);
 
-  const infectionFactor = Math.trunc(days / 3);
+  const infectionFactor = Math.round(days / 3);
 
   const currentlyInfected = currentlyInfectedPeople(content.reportedCases, multiplier);
 
@@ -43,7 +43,7 @@ export function deriveImpact({ region, ...content }, multiplier = 1) {
 
   const severeCasesByRequestedTime = Math.trunc(infectionsByRequestedTime * 0.15);
 
-  const hospitalBedsByRequestedTime = Math.ceil((content.totalHospitalBeds * 0.35)
+  const hospitalBedsByRequestedTime = Math.round((content.totalHospitalBeds * 0.35)
     - severeCasesByRequestedTime);
 
   const casesForICUByRequestedTime = Math.trunc(infectionsByRequestedTime * 0.05);
