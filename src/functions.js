@@ -50,10 +50,10 @@ export function deriveImpact({ region, ...content }, multiplier = 1) {
 
   const casesForVentilatorsByRequestedTime = Math.round(infectionsByRequestedTime * 0.02);
 
-  const dollarsInFlight = dollarsInFlightCost(
+  /* const dollarsInFlight = dollarsInFlightCost(
     infectionsByRequestedTime, days,
     region
-  );
+  ); */
 
   return {
     currentlyInfected,
@@ -61,7 +61,6 @@ export function deriveImpact({ region, ...content }, multiplier = 1) {
     severeCasesByRequestedTime,
     hospitalBedsByRequestedTime,
     casesForICUByRequestedTime,
-    casesForVentilatorsByRequestedTime,
-    dollarsInFlight
+    casesForVentilatorsByRequestedTime
   };
 }
