@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="uk-margin-small">
-                <label class="uk-form-label" for="reported">Text</label>
+                <label class="uk-form-label" for="reported"> Reported Cases</label>
                 <div class="uk-form-controls">
                     <input
                             class="uk-input"
