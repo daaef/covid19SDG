@@ -7,7 +7,7 @@ module.exports = {
       new PrerenderSPAPlugin({
         staticDir: path.join(__dirname, 'dist'),
         // Required - Routes to render.
-        routes: ['/', '/about']
+        routes: ['/', '/report']
       })
     ]
   },
