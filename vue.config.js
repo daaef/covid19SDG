@@ -11,6 +11,5 @@ module.exports = {
       })
     ]
   },
-  assetsDir: 'assets',
-  publicPath: '/covid19SDG'
+  assetsDir: 'assets'
 };
