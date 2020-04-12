@@ -34,7 +34,7 @@ export function deriveImpact({ region, ...content }, multiplier = 1) {
 
   const casesForICUByRequestedTime = Math.trunc(infectionsByRequestedTime * 0.05);
 
-  const casesForVentilatorsByRequestedTime = Math.trunc(infectionsByRequestedTime * 0.02);
+  const casesForVentilatorsByRequestedTime = Math.floor(infectionsByRequestedTime * 0.02);
 
   const dollarsInFlight = Math.trunc((infectionsByRequestedTime * region.avgDailyIncomeInUSD
     * region.avgDailyIncomePopulation) / days);
