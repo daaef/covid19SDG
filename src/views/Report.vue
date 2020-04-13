@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div v-else
-                 class="uk-height-1-1 uk-width-1-1@m uk-flex uk-flex-center uk-card-secondary uk-flex-middle">
+                 class="uk-height-1-1 uk-width-1-1@m uk-flex uk-flex-middle">
                 <h2 class="uk-heading-primary uk-text-center uk-width-1-1@m">
                     Sorry, Nothing To Show Until you
                     <router-link class="uk-link-muted" to="/">Generate</router-link>

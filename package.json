@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint ./src/",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build --mode=production"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.1.2",
