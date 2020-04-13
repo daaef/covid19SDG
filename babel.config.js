@@ -6,7 +6,8 @@ module.exports = {
         targets: {
           node: 'current'
         }
-      }
+      },
+      '@vue/cli-plugin-babel/preset'
     ]
   ]
 };
