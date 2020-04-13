@@ -87,7 +87,7 @@
                 </div>
             </div>
             <div class="uk-margin-small">
-                <button class="uk-button uk-button-bright">Calculate</button>
+                <button data-go-estimate class="uk-button uk-button-bright">Calculate</button>
             </div>
         </form>
         <div class="illustration">
