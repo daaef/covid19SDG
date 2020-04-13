@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <div class="uk-flex card-parent uk-flex-right uk-width-1-1@m uk-flex-wrap">
-            <div class="uk-width-1-2@m uk-height-1-1">
+            <div class="uk-width-1-2m card-holder uk-height-1-1">
                 <EstimatorForm :formData="formData" />
             </div>
         </div>
@@ -16,8 +16,16 @@
         }
     }
 
+    @media (min-width: 960px){
+        .uk-width-1-2m {
+            width: 50%!important;
+        }
+    }
     .card-parent{
         height: calc((100vh) - (100px));
+    }
+    .w-100{
+        width: 100%;
     }
 </style>
 

@@ -10,6 +10,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@fullhuman/postcss-purgecss": "^2.1.2",
     "@vuikit/icons": "^0.8.1",
     "@vuikit/theme": "^0.8.1",
     "core-js": "^3.6.4",

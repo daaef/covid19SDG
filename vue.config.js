@@ -11,5 +11,6 @@ module.exports = {
       })
     ]
   },
-  assetsDir: 'assets'
+  assetsDir: 'assets',
+  productionSourceMap: false
 };

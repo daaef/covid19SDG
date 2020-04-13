@@ -40,13 +40,17 @@
   };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
     .uk-label{
-        white-space: normal;
+        white-space: normal!important;
     }
     .result{
-
+        h3{
+            color: aliceblue;
+            font-weight: 600;
+            font-size: 2rem;
+        }
         @media (min-width: 993px) {
             width: 48%;
         }
