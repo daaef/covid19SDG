@@ -136,9 +136,7 @@
     },
     methods: {
       submitForm: function (data) {
-        console.log(data);
         this.$store.commit('estimate', data);
-        console.log('data submitted');
         this.$router.push('/report');
       }
     }
@@ -201,10 +199,11 @@
         top: 5%;
         left: 0;
         transform: translateX(-100%);
-        padding: 20px;
-        padding-right: 0;
+        padding: 20px 0 20px 20px;
         background: rgba(255, 255, 255, 0.67) url("/assets/img/bg.jpg");
-
+        @media (max-width: 992px) {
+            display: none;
+        }
         img {
             height: 100%;
             width: 100%;

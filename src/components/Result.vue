@@ -42,8 +42,14 @@
 
 <style scoped>
 
+    .uk-label{
+        white-space: normal;
+    }
     .result{
-        width: 48%;
+
+        @media (min-width: 993px) {
+            width: 48%;
+        }
     }
 
     .pl-5 {

@@ -11,6 +11,9 @@
 <style lang="scss">
     .home {
         padding: 50px;
+        @media (max-width: 992px){
+            padding: 50px 10px;
+        }
     }
 
     .card-parent{
@@ -20,14 +23,12 @@
 
 <script>
   // @ is an alias to /src
-  import HelloWorld from '@/components/HelloWorld.vue';
   import EstimatorForm from '../components/EstimatorForm';
 
   export default {
     name: 'Home',
     components: {
-      EstimatorForm,
-      HelloWorld
+      EstimatorForm
     },
     computed: {
       formData () {
